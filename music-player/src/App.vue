@@ -12,7 +12,18 @@
           ></el-input>
         </div>
       </header>
-      <section class="el-container">
+
+      <section class="el-container" v-show="index">
+        <div class="block" style="height: 500px; width: 1000px; display: block;margin: 0 auto;margin-top: 50px">
+          <el-carousel>
+            <el-carousel-item v-for="item in imgList" :key="item.id">
+            <img :src="item.src" />
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </section>
+
+      <section class="el-container" v-show="searchPanel">
         <aside class="el-aside" style="width: 400px;">
           <el-table :data="musicList" style="width: 100%" height="550" v-show="flag">
             <el-table-column prop="name" label="歌名" width="150px"></el-table-column>
@@ -36,14 +47,7 @@
             style="padding-left:40px padding-right:40px height:500px margin-top:50px "
           >
             <el-card style="height:500px;width:450px;text-align:center;margin-left:300px">
-              <img
-                :src="picUrl"
-                class="image"
-                style="
-                    height: 100%;
-    width: 100%;
-"
-              />
+              <img :src="picUrl" class="image" style="height: 100%;width: 100%;" />
               <div style="padding: 14px;">
                 <span style="text-align:left">{{curMusic}}</span>
               </div>
@@ -69,10 +73,18 @@ export default {
       flag: 0,
       picUrl: "",
       curMusic: "",
+      searchPanel: 0,
+      index:1,
+      imgList:[{id:1,src:'https://source.unsplash.com/1000x300/?1'},
+      {id:2,src:'https://source.unsplash.com/1000x300/?2'},
+      {id:3,src:'https://source.unsplash.com/1000x300/?3'},
+      {id:4,src:'https://source.unsplash.com/1000x300/?4'},]
     };
   },
   methods: {
     searchMusic: function () {
+      this.index = 0
+      this.searchPanel = 1
       this.musicList = [];
       this.flag = 1;
       console.log("111");
@@ -91,6 +103,8 @@ export default {
         },
         function (err) {}
       );
+
+
     },
     playMusic: function (id) {
       this.curMusic = id.name;
@@ -148,8 +162,6 @@ a {
   float: right;
 }
 
-
-
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -159,4 +171,20 @@ a {
 .clearfix:after {
   clear: both;
 }
+
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 150px;
+    margin: 0;
+  }
+
+  .el-carousel__item:nth-child(2n) {
+     background-color: #99a9bf;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+     background-color: #d3dce6;
+  }
 </style>
