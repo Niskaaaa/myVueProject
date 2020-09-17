@@ -1,18 +1,15 @@
 <template>
 <section class="msite">
     <!--首页头部-->
-    <header class="msite_header">
-        <span class="header_search">
-            <i class="iconfont icon-sousuo"></i>
+    <HeaderTop class="msite_header" title=" 昌平区北七家宏福科技园（337省道北）">
+        <span class="header_search" slot="left">
+            <i class="iconfont icon-search"></i>
         </span>
-        <span class="header_title">
-            <span class="header_title_text ellipsis">昌平区北七家宏福科技园(337省道北)</span>
-        </span>
-        <span class="header_login">
+
+        <span class="header_login" slot="right">
             <span class="header_login_text">登录|注册</span>
         </span>
-    </header>
-    <!--首页导航-->
+    </HeaderTop>
     <nav class="msite_nav">
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -118,7 +115,7 @@
                 </div>
             </div>
             <!-- Add Pagination -->
-            <div class="swiper-pagination"></div>
+            <div class="swiper-pagination" slot="pagination"></div>
         </div>
     </nav>
     <!--首页附近商家-->
@@ -312,7 +309,26 @@
 </template>
 
 <script>
+import Swiper from 'swiper'
+import '../../../node_modules/swiper/css/swiper.min.css'
+// If you use Swiper 6.0.0 or higher
+import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+
 export default {
+
+    mounted() {
+        new Swiper('.swiper-container', {
+            loop: true, // 可以循环轮播
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        })
+    },
+    components: {
+        HeaderTop,
+        Swiper
+    },
 
 }
 </script>
