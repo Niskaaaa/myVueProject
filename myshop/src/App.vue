@@ -9,7 +9,16 @@
 <script>
 /* eslint - disable */
 import FooterGuide from './components/FooterGuide/FooterGuide.vue'
+import {
+    reqFoodTypes
+} from './api'
 export default {
+    async mounted() {
+        console.log("1")
+        const result = await reqFoodTypes()
+        console.log(result)
+
+    },
     components: {
         FooterGuide
     }

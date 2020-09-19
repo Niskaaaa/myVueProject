@@ -1,9 +1,10 @@
-import axios from 'axios'
-export default function ajax (url, data={}, type='GET') {
+const axios = require('axios')
 
+module.exports = function ajax(url = '', data = {}, type = 'GET') {
   return new Promise(function (resolve, reject) {
-    // 执行异步ajax请求
+
     let promise
+
     if (type === 'GET') {
       // 准备url query参数数据
       let dataStr = '' //数据拼接字符串
@@ -11,7 +12,7 @@ export default function ajax (url, data={}, type='GET') {
         dataStr += key + '=' + data[key] + '&'
       })
       if (dataStr !== '') {
-        dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
+        dataStr = dataStr.substr(0, dataStr.lastIndexOf('&'))
         url = url + '?' + dataStr
       }
       // 发送get请求
@@ -20,12 +21,12 @@ export default function ajax (url, data={}, type='GET') {
       // 发送post请求
       promise = axios.post(url, data)
     }
-    promise.then(function (response) {
-      // 成功了调用resolve()
+
+    promise.then(response => {
       resolve(response.data)
-    }).catch(function (error) {
-      //失败了调用reject()
-      reject(error)
     })
+      .catch(error => {
+        reject(error)
+      })
   })
-}//用promise里面再包一层promise，直接返回response.data，而不是response
+}
