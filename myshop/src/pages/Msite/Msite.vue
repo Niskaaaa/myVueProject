@@ -156,7 +156,7 @@ export default {
         ShopList
     },
     computed: {
-        state: ['address']
+        ...mapState(['address'])
     }
 
 }
