@@ -1,8 +1,8 @@
 <template>
 <section class="msite">
     <!--首页头部-->
-    <HeaderTop class="msite_header" title=" 昌平区北七家宏福科技园（337省道北）">
-        <span class="header_search" slot="left">
+    <HeaderTop class="msite_header" :title="address.name">
+        <span class=" header_search" slot="left">
             <i class="iconfont icon-search"></i>
         </span>
 
@@ -136,7 +136,9 @@ import '../../../node_modules/swiper/css/swiper.min.css'
 // If you use Swiper 6.0.0 or higher
 import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
 import ShopList from '../../components/ShopList/ShopList.vue'
-
+import {
+    mapState
+} from 'vuex'
 export default {
 
     mounted() {
@@ -153,6 +155,9 @@ export default {
         Swiper,
         ShopList
     },
+    computed: {
+        state: ['address']
+    }
 
 }
 </script>

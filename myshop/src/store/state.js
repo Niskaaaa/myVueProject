@@ -2,8 +2,8 @@
 
 
 const state = {
-    latitude: 40,
-    longitude: 116,
+    latitude:116.36867,
+    longitude:40.10038,
     address: {},
     categorys: [],
     shops: []

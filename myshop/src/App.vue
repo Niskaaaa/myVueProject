@@ -10,12 +10,24 @@
 /* eslint - disable */
 import FooterGuide from './components/FooterGuide/FooterGuide.vue'
 import {
+    mapActions
+} from 'vuex'
+/* import {
     reqFoodTypes,
     reqAddress
-} from './api'
+} from './api' */
+
 export default {
-    async mounted() {
-        this.$store.dispatch('getAddress')
+    /*   async mounted() {
+          this.$store.dispatch('getAddress')
+
+     
+     }, */
+    mounted() {
+        this.getAddress()
+    },
+    methods: {
+        ...mapActions(['getAddress']) //一个数组转为用逗号分隔的参数序列
 
     },
     components: {

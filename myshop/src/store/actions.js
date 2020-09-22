@@ -19,13 +19,14 @@ export default {
     async getAddress({commit,state}){
         //发送异步ajax请求
         console.log(state)
-        console.log(state.state.latitude)
+
 
         const geohash = state.state.longitude+','+state.state.latitude
         const result = await reqAddress(geohash)
         if(result.code==0){
             const address = result.data
-            commit(RECEIVE_ADDRESS,{address})
+            commit(RECEIVE_ADDRESS,{address})        
+            console.log(address)
         }
         //提交一个mutation
     },
