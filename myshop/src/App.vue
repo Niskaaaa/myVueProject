@@ -23,8 +23,10 @@ export default {
 
      
      }, */
+
     mounted() {
         this.getAddress()
+
     },
     methods: {
         ...mapActions(['getAddress']) //一个数组转为用逗号分隔的参数序列

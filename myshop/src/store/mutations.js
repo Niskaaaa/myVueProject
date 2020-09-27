@@ -8,13 +8,18 @@ import{
 
 export default {
     [RECEIVE_ADDRESS](state,{address}){
-        state.address = address
+        //console.log(state)
+        //console.log(address)
+        state.state.address.address = address
+        //console.log(address.name)
     },
 
     [RECEIVE_CATEGORYS](state,{categorys}){
-        state.categorys = categorys
+        console.log(state)
+        state.state.categorys = categorys
+        console.log(categorys)
     },
     [RECEIVE_SHOPS](state,{shops}){
-        state.shops = shops
+        state.state.shops = shops
     },
 }
