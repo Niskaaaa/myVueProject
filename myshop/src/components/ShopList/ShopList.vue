@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="shop_container">
-        <ul class="shop_list">
+        <ul class="shop_list" v-if="shops.length">
             <li class="shop_li border-1px" v-for="(shop,index) in shops" :key="index">
                 <a>
                     <div class="shop_left">
@@ -16,13 +16,7 @@
                         </section>
                         <section class="shop_rating_order">
                             <section class="shop_rating_order_left">
-                                <div class="star star-24">
-                                    <span class="star-item on"></span>
-                                    <span class="star-item on"></span>
-                                    <span class="star-item on"></span>
-                                    <span class="star-item half"></span>
-                                    <span class="star-item off"></span>
-                                </div>
+                                <Star :score="shop.rating" :size="24" />
                                 <div class="rating_section">
                                     {{shop.rating}}
                                 </div>
@@ -45,6 +39,11 @@
                 </a>
             </li>
         </ul>
+        <ul v-if="!shops.length">
+            <li v-for="items in 6" :key="items">
+                <img src="./images/shop_back.svg" alt="back">
+            </li>
+        </ul>
     </div>
 </div>
 </template>
@@ -53,6 +52,7 @@
 import {
     mapState
 } from 'vuex'
+import Star from '../Star/Star.vue'
 export default {
     data() {
         return {
@@ -65,6 +65,9 @@ export default {
         ...mapState({
             shops: (state) => state.state.shops,
         })
+    },
+    components: {
+        Star
     }
 
 }
