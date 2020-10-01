@@ -14,7 +14,7 @@
                     <div :class="{on:loginWay}">
                         <section class="login_message">
                             <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-                            <button :disabled="!rightPhone" @click.prevent="getCode" class="get_verification" :class="{right_phone:rightPhone}">{{computeTime?`已发送(${computeTime})`:'获取验证码'}}</button>
+                            <button :disabled="!rightPhone" @click.prevent="getCode" class="get_verification" :class="{right_phone:rightPhone}">{{computeTime?`已发送($(computeTime))`:'获取验证码'}}</button>
                         </section>
                         <section class="login_verification">
                             <input type="tel" maxlength="8" placeholder="验证码">
@@ -30,11 +30,10 @@
                                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
                             </section>
                             <section class="login_verification">
-                                <input type="password" maxlength="8" placeholder="密码" v-if="!showPwd" v-model="pwd">
-                                <input type="text" maxlength="8" placeholder="密码" v-else v-model="pwd">
-                                <div class="switch_button" :class="showPwd?'on':'off'" @click="showPwd=!showPwd">
-                                    <div class="switch_circle" :class="{'right':showPwd}"></div>
-                                    <span class="switch_text">{{showPwd?'abc':'...'}}</span>
+                                <input type="tel" maxlength="8" placeholder="密码">
+                                <div class="switch_button off">
+                                    <div class="switch_circle"></div>
+                                    <span class="switch_text">...</span>
                                 </div>
                             </section>
                             <section class="login_message">
@@ -56,14 +55,15 @@
 </template>
 
 <script>
+import {
+    set
+} from 'vue/types/umd'
 export default {
     data() {
         return {
             loginWay: true, //true短信，false密码
             computeTime: 0,
-            phone: '',
-            showPwd: false,
-            pwd: ''
+            phone: ''
         }
     },
     created() {},
@@ -90,9 +90,3 @@ export default {
 
     },
 }
-</script>
-
-<style lang="stylus" scoped>
-@import '../../assets/mixins.styl';
-@import './Login.styl';
-</style>
