@@ -17,7 +17,7 @@
                             <button :disabled="!rightPhone" @click.prevent="getCode" class="get_verification" :class="{right_phone:rightPhone}">{{computeTime?`已发送(${computeTime})`:'获取验证码'}}</button>
                         </section>
                         <section class="login_verification">
-                            <input type="tel" maxlength="8" placeholder="验证码">
+                            <input type="tel" maxlength="8" placeholder="验证码" v-model="code">
                         </section>
                         <section class="login_hint">
                             温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
@@ -27,7 +27,7 @@
                     <div :class="{on:!loginWay}">
                         <section>
                             <section class="login_message">
-                                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
+                                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" v-model="name">
                             </section>
                             <section class="login_verification">
                                 <input type="password" maxlength="8" placeholder="密码" v-if="!showPwd" v-model="pwd">
@@ -38,12 +38,12 @@
                                 </div>
                             </section>
                             <section class="login_message">
-                                <input type="text" maxlength="11" placeholder="验证码">
+                                <input type="text" maxlength="11" v-model="captcha" placeholder="验证码">
                                 <img class="get_verification" src="./images/captcha.svg" alt="captcha">
                             </section>
                         </section>
                     </div>
-                    <button class="login_submit">登录</button>
+                    <button class="login_submit" @click.prevent="login">登录</button>
                 </form>
                 <a href="javascript:;" class="about_us">关于我们</a>
             </div>
@@ -51,11 +51,14 @@
                 <i class="iconfont icon-jiantouzuo"></i>
             </a>
         </div>
+        <AlertTip :alertText="alertText" v-show="alertShow" @closeTip="closeTip" />
     </section>
 </div>
 </template>
 
 <script>
+import AlertTip from '../../components/AlertTip/AlertTip.vue'
+import ShopList from '../../components/ShopList/ShopList.vue'
 export default {
     data() {
         return {
@@ -63,7 +66,12 @@ export default {
             computeTime: 0,
             phone: '',
             showPwd: false,
-            pwd: ''
+            pwd: '',
+            code: '',
+            captcha: '',
+            name: '',
+            alertText: '',
+            alertShow: false
         }
     },
     created() {},
@@ -73,6 +81,11 @@ export default {
         }
     },
     methods: {
+        closeTip() {
+            this.alertShow = false
+            this.alertText = ''
+
+        },
         getCode() {
             if (this.computeTime == 0) {
                 this.computeTime = 30
@@ -86,9 +99,47 @@ export default {
 
             //发送ajax
 
+        },
+        showAlert(alertText) {
+            this.alertShow = true
+            this.alertText = alertText
+        },
+        login() {
+            if (this.loginWay) {
+                const {
+                    rightPhone,
+                    phone,
+                    code
+                } = this
+                if (!this.rightPhone) {
+                    this.showAlert('手机号不正确')
+
+                } else if (!/^\d{6}$/.test(code)) {
+                    this.showAlert('验证码不正确')
+
+                }
+            } else {
+                const {
+                    name,
+                    pwd,
+                    captcha
+                } = this
+                if (!this.name) {
+                    this.showAlert('用户名不正确')
+                } else if (!this.pwd) {
+                    this.showAlert('密码不正确')
+
+                } else if (!this.captcha) {
+                    this.showAlert('验证码不正确')
+                }
+            }
+
         }
 
     },
+    components: {
+        AlertTip
+    }
 }
 </script>
 
