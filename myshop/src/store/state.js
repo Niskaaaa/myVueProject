@@ -6,7 +6,9 @@ const state = {
     longitude:40.10038,
     address: {address:{name:'111'}},
     categorys: [111,222],
-    shops: []
+    shops: [],
+    userInfo:{a:'111'}
+
 
 
 }

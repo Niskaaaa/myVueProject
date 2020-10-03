@@ -19,9 +19,9 @@ router.post('/login_pwd', function (req, res) {
   console.log('/login_pwd', name, pwd, captcha, req.session)
 
   // 可以对用户名/密码格式进行检查, 如果非法, 返回提示信息
-  if(captcha!==req.session.captcha) {
+/*   if(captcha!==req.session.captcha) {
     return res.send({code: 1, msg: '验证码不正确'})
-  }
+  } */
   // 删除保存的验证码
   delete req.session.captcha
 

@@ -39,7 +39,7 @@
                             </section>
                             <section class="login_message">
                                 <input type="text" maxlength="11" v-model="captcha" placeholder="验证码">
-                                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha">
                             </section>
                         </section>
                     </div>
@@ -59,6 +59,11 @@
 <script>
 import AlertTip from '../../components/AlertTip/AlertTip.vue'
 import ShopList from '../../components/ShopList/ShopList.vue'
+import {
+    reqSendCode,
+    reqSmsLogin,
+    reqPwdLogin
+} from '../../api'
 export default {
     data() {
         return {
@@ -86,7 +91,11 @@ export default {
             this.alertText = ''
 
         },
-        getCode() {
+        getCaptcha(event) {
+            event.target.src = "http://localhost:4000/captcha?time=" + Date.now()
+
+        },
+        async getCode() {
             if (this.computeTime == 0) {
                 this.computeTime = 30
                 const intervalId = setInterval(() => {
@@ -98,13 +107,22 @@ export default {
             //启动倒计时
 
             //发送ajax
+            const result = await reqSendCode(this.phone)
+            if (result.code == 1) {
+                this.showAlert(result.msg)
+                if (this.computeTime <= 0)
+                    clearInterval(this.intervalId)
+                this.intervalId = undefined
+
+            }
 
         },
         showAlert(alertText) {
             this.alertShow = true
             this.alertText = alertText
         },
-        login() {
+        async login() {
+            let result
             if (this.loginWay) {
                 const {
                     rightPhone,
@@ -113,11 +131,16 @@ export default {
                 } = this
                 if (!this.rightPhone) {
                     this.showAlert('手机号不正确')
+                    return
 
                 } else if (!/^\d{6}$/.test(code)) {
-                    this.showAlert('验证码不正确')
+                    this.showAlert('验证码格式错误')
+                    return
 
                 }
+
+                result = await reqSmsLogin(phone, code)
+
             } else {
                 const {
                     name,
@@ -126,17 +149,36 @@ export default {
                 } = this
                 if (!this.name) {
                     this.showAlert('用户名不正确')
+                    return
                 } else if (!this.pwd) {
                     this.showAlert('密码不正确')
+                    return
 
                 } else if (!this.captcha) {
-                    this.showAlert('验证码不正确')
+                    this.showAlert('验证码错误')
+                    return
                 }
+
+                result = await reqPwdLogin({
+                    name,
+                    pwd,
+                    captcha
+                })
+
+            }
+
+            if (result.code == 0) {
+                const user = result.data
+                this.$store.dispatch('recordUser', user)
+                this.$router.replace('/profile')
+            } else {
+                const msg = result.msg
+                this.showAlert(msg)
             }
 
         }
-
     },
+
     components: {
         AlertTip
     }

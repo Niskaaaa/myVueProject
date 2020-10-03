@@ -4,13 +4,14 @@
 import{
     RECEIVE_SHOPS,
     RECEIVE_CATEGORYS,
-    RECEIVE_ADDRESS 
+    RECEIVE_ADDRESS, RECEIVE_USER_INFO 
 } from './mutation-types'
 
 import{
     reqAddress,
     reqFoodCategorys,
-    reqShops
+    reqShops,
+    reqUserInfo
 } from '../api'
 
 
@@ -55,5 +56,19 @@ export default {
             commit(RECEIVE_SHOPS,{shops})
         }
         //提交一个mutation
-    }
+    },
+
+    async getUserInfo({commit}) {
+        const result = await reqUserInfo()
+        if (result.code === 0) {
+          const userInfo = result.data
+          commit(RECEIVE_USER_INFO, {userInfo})
+        }
+      },
+
+    //同步记录用户信息
+    recordUser({commit},userInfo){
+        commit(RECEIVE_USER_INFO,{userInfo})
+
+    },
 }
