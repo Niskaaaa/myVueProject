@@ -7,7 +7,7 @@
 
     <section class="profile-number">
 
-        <router-link to="/login" class="profile-link">
+        <router-link :to="userInfo._id?'/userinfo':'/login'" class=" profile-link">
             <div class="profile_image">
                 <i class="iconfont icon-person"></i>
             </div>
@@ -93,6 +93,9 @@
                 </span>
             </div>
         </a>
+    </section>
+    <section class="profile_my_order border-1px">
+        <mt-button type="danger" style="width:100%" v-if="userInfo._id">退出登录</mt-button>
     </section>
 </section>
 </template>

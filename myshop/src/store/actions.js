@@ -57,7 +57,7 @@ export default {
         }
         //提交一个mutation
     },
-
+//异步获取用户信息
     async getUserInfo({commit}) {
         const result = await reqUserInfo()
         if (result.code === 0) {

@@ -1,14 +1,16 @@
 <template>
 <section class="msite">
     <!--首页头部-->
-    <HeaderTop class="msite_header" :title="address.name">
-        <span class="header_search" slot="left">
+    <HeaderTop class="msite_header" :title="address.name" to="/search">
+        <router-link class="header_search" slot="left">
             <i class="iconfont icon-search"></i>
-        </span>
+        </router-link>
 
-        <span class="header_login" slot="right">
-            <span class="header_login_text">登录|注册</span>
-        </span>
+        <router-link class="header_login" slot="right" :to="userInfo._id?'/userinfo':'/login'">
+            <span class="header_login_text" v-if="!userInfo._id">登录|注册</span>
+            <span class="header_login_text" v-else><i class="iconfont icon-icon-person"></i></span>
+
+        </router-link>
     </HeaderTop>
     <nav class="msite_nav">
         <div class="swiper-container">
@@ -81,7 +83,7 @@ export default {
 
             address: (state) => state.state.address.address,
             categorys: (state) => state.state.categorys,
-            
+            userInfo: (state) => state.state.userInfo,
 
         }),
         categorysArr() {

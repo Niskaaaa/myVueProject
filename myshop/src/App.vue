@@ -26,10 +26,11 @@ export default {
 
     mounted() {
         this.getAddress()
+        this.getUserInfo()
 
     },
     methods: {
-        ...mapActions(['getAddress']) //一个数组转为用逗号分隔的参数序列
+        ...mapActions(['getAddress', 'getUserInfo']) //一个数组转为用逗号分隔的参数序列
 
     },
     components: {
