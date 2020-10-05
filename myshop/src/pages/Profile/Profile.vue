@@ -95,7 +95,7 @@
         </a>
     </section>
     <section class="profile_my_order border-1px">
-        <mt-button type="danger" style="width:100%" v-if="userInfo._id">退出登录</mt-button>
+        <mt-button type="danger" style="width:100%" v-if="userInfo._id" @click="logout">退出登录</mt-button>
     </section>
 </section>
 </template>
@@ -105,9 +105,21 @@ import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
 import {
     mapState
 } from 'vuex'
+import {
+    MessageBox
+} from 'mint-ui'
 export default {
     components: {
         HeaderTop
+    },
+    methods: {
+        logout() {
+            MessageBox.confirm('确认退出?').then(action => {
+                this.$store.dispatch('logout');
+                this.$router.replace('/')
+
+            });
+        }
     },
     computed: {
         ...mapState({

@@ -4,12 +4,13 @@
 import{
     RECEIVE_SHOPS,
     RECEIVE_CATEGORYS,
-    RECEIVE_ADDRESS, RECEIVE_USER_INFO 
+    RECEIVE_ADDRESS, RECEIVE_USER_INFO,RESET_USER_INFO
 } from './mutation-types'
 
 import{
     reqAddress,
     reqFoodCategorys,
+    reqLogout,
     reqShops,
     reqUserInfo
 } from '../api'
@@ -71,4 +72,15 @@ export default {
         commit(RECEIVE_USER_INFO,{userInfo})
 
     },
+
+    //异步登出
+
+
+      // 异步登出
+  async logout({commit}) {
+    const result = await reqLogout()
+    if (result.code === 0) {
+      commit(RESET_USER_INFO)
+    }
+  },
 }
