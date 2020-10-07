@@ -7,6 +7,7 @@ import {Button} from 'mint-ui'
 import router from './router'
 // import router from './router'
 import store from './store'
+import './mock/mockServer'
 
 Vue.component(Button.name,Button)//<mt-button>
 

@@ -32,7 +32,9 @@ export default {
     data() {
         return {}
     },
-    created() {},
+    mounted() {
+        this.$store.dispatch('getShopInfo')
+    },
     computed: {},
     methods: {},
     components: {

@@ -7,7 +7,10 @@ const state = {
     address: {address:{name:'111'}},
     categorys: [111,222],
     shops: [],
-    userInfo:{a:'111'}
+    userInfo:{a:'111'},
+    goods:[],
+    ratings:[],
+    info:{}
 
 
 
