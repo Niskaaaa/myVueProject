@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="goods">
-        <div class="menu-wrapper">
+        <div class="menu-wrapper" ref="menuWrapper">
             <ul>
                 <!--current-->
                 <!--currentIndex-->
@@ -10,7 +10,7 @@
         </div>
         <div class="foods-wrapper">
             <ul ref="foodsWarpperUl">
-                <li class="food-list food-list-hook" v-for="(good, index) in goods" :key="index">
+                <li class="food-list food-list-hook" v-for="(good, index) in goods" :key="index" :class="{current:index==currentIndex}">
                     <h1 class="title">{{good.name}}</h1>
                     <ul>
                         <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index">
@@ -32,12 +32,18 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 import {
     mapState
 } from 'vuex'
+//列表显示之后创建
+
 export default {
     data() {
-        return {}
+        return {
+            scrollY: 0,
+            tops: []
+        }
     },
     created() {},
     computed: {
@@ -52,11 +58,10 @@ export default {
     methods: {},
     mounted() {
 
-        this.$store.dispatch('getShopGoods', () => { // 数据更新后执行
+        this.$store.dispatch('getShopGoods', () => { // 数据更新后执行，通知更新
             this.$nextTick(() => { // 列表数据更新显示后执行
-
-                this._initScroll()
-                this._initTops()
+                new BScroll('.menu-wrapper')
+                new BScroll('.foods-wrapper')
             })
         })
     }
