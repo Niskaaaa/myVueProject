@@ -8,6 +8,8 @@ import{
     RECEIVE_GOODS,
     RECEIVE_RATINGS,
     RECEIVE_INFO,
+    INCREAMENT_FOOD_COUNT,
+    DECREAMENT_FOOD_COUNT
 } from './mutation-types'
 
 import{
@@ -120,5 +122,15 @@ export default {
       callback && callback()//callback可传可不传
     }
   },
-
+updateFoodCount({commit},{isAdd,food}){
+  if(isAdd){
+    commit(INCREAMENT_FOOD_COUNT,{food})
+    
+  }else{
+      commit(DECREAMENT_FOOD_COUNT,{food})
+    }
+  
 }
+}
+
+

@@ -1,5 +1,5 @@
 //直接更新state的多个方法的对象
-
+import Vue from 'vue'
 import{
     RECEIVE_SHOPS,
     RECEIVE_CATEGORYS,
@@ -9,6 +9,8 @@ import{
     RECEIVE_INFO,
     RECEIVE_RATINGS,
     RECEIVE_GOODS,
+    INCREAMENT_FOOD_COUNT,
+    DECREAMENT_FOOD_COUNT
 } from './mutation-types'
 
 export default {
@@ -45,5 +47,20 @@ export default {
 
   [RECEIVE_GOODS](state, {goods}) {
     state.state.goods = goods
+  },
+
+
+  
+  [INCREAMENT_FOOD_COUNT](state, {food}) {
+    if(!food.count){
+      Vue.set(food,'count',1)//让新增的属性也有数据绑定
+    }
+    else food.count++;
+
+  },
+
+  
+  [DECREAMENT_FOOD_COUNT](state, {food}) {
+    food.count--;
   },
 }
