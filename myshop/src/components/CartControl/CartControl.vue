@@ -5,7 +5,7 @@
             <div class="iconfont icon-remove-circle-outlin" v-if="food.count" @click="updateFoodCount(false)"></div>
         </transition>
         <div class="cart-count">{{food.count}}</div>
-        <div class="iconfont icon-add-circle-outline" @click="updateFoodCount(true)"></div>
+        <div class="iconfont icon-add-circle-outline" @click.stop="updateFoodCount(true)"></div>
     </div>
 </div>
 </template>

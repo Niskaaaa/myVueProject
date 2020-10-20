@@ -13,7 +13,7 @@
                 <li class="food-list food-list-hook" v-for="(good, index) in goods" :key="index" :class="{current:index==currentIndex}">
                     <h1 class="title">{{good.name}}</h1>
                     <ul>
-                        <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index">
+                        <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index" @click="showFood(food)">
                             <div class="icon"> <img width="57" height="57" :src="food.icon"> </div>
                             <div class="content">
                                 <h2 class="name">{{food.name}}</h2>
@@ -30,6 +30,8 @@
             </ul>
         </div>
     </div>
+    <Food :food="food" ref="food" />
+    <ShopCart />
 </div>
 </template>
 
@@ -39,13 +41,16 @@ import {
     mapState
 } from 'vuex'
 import CartControl from '../../../components/CartControl/CartControl.vue'
+import Food from '../../../components/Food/Food.vue'
+import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 //列表显示之后创建
 
 export default {
     data() {
         return {
             scrollY: 0,
-            tops: []
+            tops: [],
+            food: {},
         }
     },
     created() {},
@@ -118,6 +123,14 @@ export default {
             this.scrollY = scrollY
             this.foodScroll.scrollTo(0, -scrollY, 300)
 
+        },
+
+        showFood(food) {
+            this.food = food
+
+            //在父组件中调用子组件对象的方法
+            this.$refs.food.toggleShow()
+
         }
     },
     mounted() {
@@ -130,7 +143,9 @@ export default {
         })
     },
     components: {
-        CartControl
+        CartControl,
+        Food,
+        ShopCart
 
     }
 }

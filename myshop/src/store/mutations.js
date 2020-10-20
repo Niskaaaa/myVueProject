@@ -54,6 +54,7 @@ export default {
   [INCREAMENT_FOOD_COUNT](state, {food}) {
     if(!food.count){
       Vue.set(food,'count',1)//让新增的属性也有数据绑定
+      state.state.cartFoods.push(food)
     }
     else food.count++;
 
@@ -61,6 +62,11 @@ export default {
 
   
   [DECREAMENT_FOOD_COUNT](state, {food}) {
+    if(food.count){
     food.count--;
+    if(food.count===0)
+    state.state.cartFoods.splice(state.cartFoods.indexOf(food),1)      
+    }
+
   },
 }

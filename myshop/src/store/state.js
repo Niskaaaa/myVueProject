@@ -10,7 +10,8 @@ const state = {
     userInfo:{a:'111'},
     goods:[],
     ratings:[],
-    info:{}
+    info:{},
+    cartFoods:[],
 
 
 
