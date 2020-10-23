@@ -10,7 +10,8 @@ import{
     RECEIVE_RATINGS,
     RECEIVE_GOODS,
     INCREAMENT_FOOD_COUNT,
-    DECREAMENT_FOOD_COUNT
+    DECREAMENT_FOOD_COUNT,
+    CLEAR_CART
 } from './mutation-types'
 
 export default {
@@ -64,9 +65,14 @@ export default {
   [DECREAMENT_FOOD_COUNT](state, {food}) {
     if(food.count){
     food.count--;
-    if(food.count===0)
-    state.state.cartFoods.splice(state.cartFoods.indexOf(food),1)      
+    if(food.count==0)
+    state.state.cartFoods.splice(state.state.cartFoods.indexOf(food),1)      
     }
 
+  },
+
+  
+  [CLEAR_CART](state) {
+    state.state.cartFoods = []
   },
 }

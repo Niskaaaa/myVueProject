@@ -9,7 +9,8 @@ import{
     RECEIVE_RATINGS,
     RECEIVE_INFO,
     INCREAMENT_FOOD_COUNT,
-    DECREAMENT_FOOD_COUNT
+    DECREAMENT_FOOD_COUNT,
+    CLEAR_CART
 } from './mutation-types'
 
 import{
@@ -130,6 +131,10 @@ updateFoodCount({commit},{isAdd,food}){
       commit(DECREAMENT_FOOD_COUNT,{food})
     }
   
+},
+
+clearCart({commit}){
+  commit()
 }
 }
 

@@ -2,9 +2,9 @@
 <div>
     <div class="cartcontrol">
         <transition name="move">
-            <div class="iconfont icon-remove-circle-outlin" v-if="food.count" @click="updateFoodCount(false)"></div>
+            <div class="iconfont icon-remove-circle-outlin" v-if="food.count"  @click.stop="updateFoodCount(false)"></div>
         </transition>
-        <div class="cart-count">{{food.count}}</div>
+        <div class="cart-count" v-if="food.count">{{food.count}}</div>
         <div class="iconfont icon-add-circle-outline" @click.stop="updateFoodCount(true)"></div>
     </div>
 </div>
