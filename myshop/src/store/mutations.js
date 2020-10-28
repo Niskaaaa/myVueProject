@@ -73,6 +73,7 @@ export default {
 
   
   [CLEAR_CART](state) {
+    state.state.cartFoods.forEach(food=>food.count=0)
     state.state.cartFoods = []
   },
 }

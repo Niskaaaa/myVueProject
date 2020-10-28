@@ -121,7 +121,7 @@ export default {
             this.isShow = !this.isShow
         },
         clearCart(){
-            MessageBox.comfirm('确定清空购物车吗').then(action=>{
+            MessageBox.confirm('确定清空购物车吗').then(action=>{
                 this.$store.dispatch('clearCart')
 
             })
