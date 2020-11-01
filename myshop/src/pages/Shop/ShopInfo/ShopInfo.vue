@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 import {mapGetters, mapState} from 'vuex' 
 export default {
   data() {
@@ -71,7 +72,37 @@ export default {
 
         }),
   },
-  methods: {},
+  mounted(){
+
+    if(!this.info.pics){
+      return 
+    }
+    
+    this._initScroll()
+
+  },
+  watch:{
+    info(){
+      this.$nextTick(()=>{
+        this._initScroll()
+
+      })
+    }
+
+  },
+  methods: {
+    _initScroll(){new BScroll('.shop-info')    
+    const ul = this.$refs.picsUl
+    const liWidth =120
+    const space = 6
+    const count = this.info.pics.length
+    ul.style.width=(liWidth+space)*count-space+'px'
+
+    new BScroll(".pic-wrapper",{
+      scrollX:true
+    })
+    }
+  },
 };
 </script>
 
