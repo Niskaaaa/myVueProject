@@ -8,6 +8,12 @@ import router from './router'
 // import router from './router'
 import store from './store'
 import './mock/mockServer'
+import VueLazyload from 'vue-lazyload' 
+import loading from './common/imgs/loading.gif' 
+import './filters'
+
+Vue.use(VueLazyload, { loading })
+
 
 Vue.component(Button.name,Button)//<mt-button>
 
